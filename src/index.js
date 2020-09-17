@@ -14,20 +14,11 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { UserProvider } from "./providers/userProvider";
+import { webSocketUri, httpUri } from "./graphql/config";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
 const authToken = localStorage.getItem(AUTH_TOKEN);
-
-const httpUri =
-  process.env.NODE_ENV === "production"
-    ? "https://maa-hacker-news.herokuapp.com/"
-    : "http://localhost:4000/";
-
-const webSocketUri =
-  process.env.NODE_ENV === "production"
-    ? "https://maa-hacker-news.herokuapp.com/"
-    : "ws://localhost:4000/graphql";
 
 const wsLink = new WebSocketLink({
   uri: webSocketUri,
