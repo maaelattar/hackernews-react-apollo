@@ -2,9 +2,11 @@
 
 Hacker News is a social news website focusing on computer science and entrepreneurship. this a clone implementing some of its features with graphql.
 
-<!-- ## Live Demo: [#](#) -->
+**_Live Demo: [https://maa-hackernews.netlify.app/](https://maa-hackernews.netlify.app/)_**
 
-## Hacker News GraphQL Api Repository: [https://github.com/maaelattar/book-shelf-server](https://github.com/maaelattar/book-shelf-server)
+**_Hacker News GraphQL Api Repository: [https://github.com/maaelattar/hackernews-server](https://github.com/maaelattar/hackernews-server)_**
+
+---
 
 ## Table of Contents
 
