@@ -14,9 +14,6 @@ export default function LinkList() {
     subscribeToMore({
       document: NEW_LINKS_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
-        console.log("subscribeToNewLinks prev", prev);
-        console.log("subscribeToNewLinks subscriptionData", subscriptionData);
-
         if (!subscriptionData.data) return prev;
         const newLink = subscriptionData.data.newLink;
         const exists = prev.feed.links.find(({ id }) => id === newLink.id);
@@ -87,7 +84,7 @@ export default function LinkList() {
     }
   };
   return (
-    <div>
+    <div className="mt-4">
       {linksToRender.map((link, index) => (
         <Link key={link.id} link={link} index={index + pageIndex} />
       ))}

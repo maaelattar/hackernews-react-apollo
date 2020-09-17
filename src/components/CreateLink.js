@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { LINKS_PER_PAGE } from "../constants";
 import { FEED_QUERY } from "../graphql/GraphqlQueries";
 import { POST_MUTATION } from "../graphql/GraphQLMutations";
+import { Form, Button } from "react-bootstrap";
 
 export default function CreateLink() {
   const [description, setDescription] = useState("");
@@ -47,30 +48,33 @@ export default function CreateLink() {
   };
 
   return (
-    <div>
-      <div className="flex flex-column mt3">
-        <form onSubmit={handleSubmit}>
-          <input
-            className="mb2"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            type="text"
-            placeholder="A description for the link"
-            required
-          />
-          <input
-            className="mb2"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            type="url"
-            placeholder="https://example.com"
-            required
-          />
-          <button type="submit">Submit</button>
-        </form>
-        {loading && <p>Loading...</p>}
-        {error && <p>Error :( Please try again</p>}
-      </div>
-    </div>
+    <Form onSubmit={handleSubmit} className="mt-4">
+      <Form.Group controlId="formGroupDescription">
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="A description for the link"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Form.Group controlId="formGroupURL">
+        <Form.Label>URL</Form.Label>
+        <Form.Control
+          type="url"
+          placeholder="https://example.com"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Button className="text-capitalize" variant="primary" type="submit">
+        Submit
+      </Button>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error :( Please try again</p>}
+    </Form>
+    // </div>
   );
 }

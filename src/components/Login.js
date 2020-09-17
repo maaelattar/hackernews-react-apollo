@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../providers/userProvider";
 import { LOGIN_MUTATION, SIGNUP_MUTATION } from "../graphql/GraphQLMutations";
+import { Form, Button } from "react-bootstrap";
 
 export default function Login() {
   const [login, setLogin] = useState(true);
 
-  const [formInput, setFormInput] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
-
-  const updateFormInput = (e) => {
-    setFormInput({ ...formInput, [e.target.name]: e.target.value });
-  };
-  const { name, email, password } = formInput;
+  const { authToken } = useContext(UserContext);
 
   let { loginUser } = useContext(UserContext);
 
@@ -30,69 +25,81 @@ export default function Login() {
     onCompleted: (data) => {
       const token = login ? data.login.token : data.signup.token;
       loginUser(token);
-      history.push(`/`);
+      history.go(0);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submit({ variables: { ...formInput } });
+    login
+      ? submit({ variables: { email, password } })
+      : submit({ variables: { name, email, password } });
   };
 
-  useEffect(() => {
-    if (login) {
-      setFormInput({ email: "", password: "" });
-    } else {
-      setFormInput({ name: "", email: "", password: "" });
-    }
-    return () => {
-      setFormInput({ name: "", email: "", password: "" });
-    };
-  }, [login]);
-
   return (
-    <div>
-      <h4 className="mv3">{login ? "Login" : "Sign Up"}</h4>
-      <form onSubmit={handleSubmit}>
-        <div className="flex flex-column">
-          {!login && (
-            <input
-              name="name"
-              value={name}
-              onChange={updateFormInput}
-              type="text"
-              placeholder="Your name"
-            />
-          )}
-          <input
-            name="email"
-            value={email}
-            onChange={updateFormInput}
-            type="text"
-            placeholder="Your email address"
-          />
-          <input
-            name="password"
-            value={password}
-            onChange={updateFormInput}
-            type="password"
-            placeholder="Choose a safe password"
-          />
-        </div>
-        <div className="flex mt3">
-          <button type="submit" className="pointer mr2 button">
-            {login ? "login" : "create account"}
-          </button>
+    <>
+      {authToken ? (
+        <h4 className="text-center mt-4 display-3">
+          You are already logged in
+        </h4>
+      ) : (
+        <div>
+          <h4 className="mv3">{login ? "Login" : "Sign Up"}</h4>
+          <Form onSubmit={handleSubmit}>
+            {!login && (
+              <Form.Group controlId="formBasicName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Group>
+            )}
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
 
-          <button
-            type="button"
-            className="pointer button"
-            onClick={() => setLogin(!login)}
-          >
-            {login ? "need to create an account?" : "already have an account?"}
-          </button>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              className="text-capitalize mr-4"
+              variant="primary"
+              type="submit"
+            >
+              {login ? "login" : "create account"}
+            </Button>
+
+            <Button
+              className="text-capitalize"
+              variant="outline-secondary"
+              type="button"
+              onClick={() => setLogin(!login)}
+            >
+              {login
+                ? "need to create an account?"
+                : "already have an account?"}
+            </Button>
+          </Form>
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 }

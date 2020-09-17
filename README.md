@@ -1,68 +1,220 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Hacker News
 
-## Available Scripts
+Hacker News is a social news website focusing on computer science and entrepreneurship. this a clone implementing some of its features with graphql.
 
-In the project directory, you can run:
+<!-- ## Live Demo: [#](#) -->
 
-### `yarn start`
+## Hacker News GraphQL Api Repository: [https://github.com/maaelattar/book-shelf-server](https://github.com/maaelattar/book-shelf-server)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Table of Contents
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [Technologies](#technologies)
+- [Installation and Setup Instructions](#installation-and-setup-instructions)
+- [GraphQL Querires](#graphQL-querires)
+- [GraphQL Mutations](#graphQL-mutations)
+- [GraphQL Subscriptions](#graphQL-subscriptions)
+<!-- - [Project Screen Shots](#project-screen-shots) -->
 
-### `yarn test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- React Router Dom
+- Apollo Client
+- BootStrap
+- React BootStrap
 
-### `yarn build`
+## Installation and Setup Instructions
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Installation:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+`yarn install`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To Start Server:
 
-### `yarn eject`
+`yarn start`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To Visit App:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## GraphQL Querires
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Feed Query**
 
-## Learn More
+```graphql
+query FeedQuery($take: Int, $skip: Int, $orderBy: LinkOrderByInput) {
+  feed(take: $take, skip: $skip, orderBy: $orderBy) {
+    links {
+      id
+      createdAt
+      url
+      description
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+    count
+  }
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Search Query**
 
-### Code Splitting
+```graphql
+query FeedSearchQuery($filter: String!) {
+  feed(filter: $filter) {
+    links {
+      id
+      url
+      description
+      createdAt
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+  }
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## GraphQL Mutations
 
-### Analyzing the Bundle Size
+**Signup Mutation**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```graphql
+mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+  signup(email: $email, password: $password, name: $name) {
+    token
+  }
+}
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+**Login Mutation**
 
-### Advanced Configuration
+```graphql
+mutation LoginMutation($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+  }
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+---
 
-### Deployment
+**Post Mutation**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```graphql
+mutation PostMutation($description: String!, $url: String!) {
+  post(description: $description, url: $url) {
+    id
+    createdAt
+    url
+    description
+  }
+}
+```
 
-### `yarn build` fails to minify
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**Vote Mutation**
+
+```graphql
+mutation VoteMutation($linkId: ID!) {
+  vote(linkId: $linkId) {
+    id
+    link {
+      id
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+    user {
+      id
+    }
+  }
+}
+```
+
+---
+
+## GraphQL Subscriptions
+
+**New Link Subscription**
+
+```graphql
+subscription {
+  newLink {
+    id
+    url
+    description
+    createdAt
+    postedBy {
+      id
+      name
+    }
+    votes {
+      id
+      user {
+        id
+      }
+    }
+  }
+}
+```
+
+---
+
+**New Vote Subscription**
+
+```graphql
+subscription {
+  newVote {
+    id
+    link {
+      id
+      url
+      description
+      createdAt
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+    user {
+      id
+    }
+  }
+}
+```
+
+<!-- ## Project Screen Shots -->
+
+<!-- - Home Page
+
+  - ![ Home Page ](#) -->

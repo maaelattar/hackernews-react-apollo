@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
@@ -34,7 +35,9 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     connectionParams: {
-      authToken: authToken,
+      headers: {
+        authorization: `Bearer ${authToken}`,
+      },
     },
   },
 });

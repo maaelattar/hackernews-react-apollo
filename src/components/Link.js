@@ -17,25 +17,35 @@ export default function Link({ link, index }) {
   });
 
   return (
-    <div className="flex mt2 items-start">
-      <div className="flex items-center">
-        <span className="gray">{index + 1}.</span>
-        {authToken && (
-          <div className="ml1 gray f11 arrow" onClick={voteMutation}>
-            ▲
+    <>
+      <div
+        className="d-flex flex-column mt-2 p-4 shadow"
+        style={{ height: "auto" }}
+      >
+        <div className="d-flex flex-row justify-content-start align-items-center">
+          <div className="text-muted">{index + 1}.</div>
+          <div className="text-muted ml-1" onClick={voteMutation}>
+            {authToken && <span className="arrow-pointer">▲</span>}
           </div>
-        )}
-      </div>
-      <div className="ml1">
-        <div>
-          {link.description} ({link.url})
+          <div className="font-weight-bold ml-1 text-capitalize">
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              {link.description}
+            </a>
+          </div>
+          <div className="text-muted ml-1 text-break">
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              ( {link.url} )
+            </a>
+          </div>
         </div>
-        <div className="f6 lh-copy gray">
-          {link.votes.length} votes | by{" "}
-          {link.postedBy ? link.postedBy.name : "Unknown"}{" "}
-          {timeDifferenceForDate(link.createdAt)}
+        <div className="text-black-50 ml-4">
+          <span className="ml-2">{link.votes.length} votes | by</span>
+          <span className="ml-1">
+            {link.postedBy ? link.postedBy.name : "Unknown"}
+          </span>
+          <span className="ml-1">{timeDifferenceForDate(link.createdAt)}</span>
         </div>
       </div>
-    </div>
+    </>
   );
 }
