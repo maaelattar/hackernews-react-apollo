@@ -6,6 +6,11 @@ Hacker News is a social news website focusing on computer science and entreprene
 
 **_Hacker News GraphQL Api Repository: [https://github.com/maaelattar/hackernews-server](https://github.com/maaelattar/hackernews-server)_**
 
+```
+email = foo@email.com
+password = foofoo
+```
+
 ---
 
 ## Table of Contents
@@ -15,7 +20,7 @@ Hacker News is a social news website focusing on computer science and entreprene
 - [GraphQL Querires](#graphQL-querires)
 - [GraphQL Mutations](#graphQL-mutations)
 - [GraphQL Subscriptions](#graphQL-subscriptions)
-<!-- - [Project Screen Shots](#project-screen-shots) -->
+- [Project Screen Shots](#project-screen-shots)
 
 ## Technologies
 
@@ -215,8 +220,25 @@ subscription {
 }
 ```
 
-<!-- ## Project Screen Shots -->
+## Project Screen Shots
 
-<!-- - Home Page
+- New Links Page
 
-  - ![ Home Page ](#) -->
+  - Home page redirects to new page
+  - ![ New Links Page ](https://res.cloudinary.com/m-a-a/image/upload/v1600311472/hackernews-new_qhxjkp.png)
+
+- Top Page
+
+  - ![ Top Page ](https://res.cloudinary.com/m-a-a/image/upload/v1600311474/hackernews-top_ydvoki.png)
+
+- Search Page
+
+  - ![ Search Page ](https://res.cloudinary.com/m-a-a/image/upload/v1600311472/hackernews-search_ii6vyv.png)
+
+- Submit Page
+
+  - ![ Submit Page ](https://res.cloudinary.com/m-a-a/image/upload/v1600311472/hackernews-submit_emjisc.png)
+
+- Login / Sign Up Page
+  - ![ Login Page ](https://res.cloudinary.com/m-a-a/image/upload/v1600311471/hackernews-login_fhcsyh.png)
+  - ![ Sign Up Page ](https://res.cloudinary.com/m-a-a/image/upload/v1600311473/hackernews-signup_kxvlft.png)
