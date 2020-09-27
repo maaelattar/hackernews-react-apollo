@@ -6,6 +6,8 @@ Hacker News is a social news website focusing on computer science and entreprene
 
 **_Hacker News GraphQL Api Repository: [https://github.com/maaelattar/hackernews-server](https://github.com/maaelattar/hackernews-server)_**
 
+**_Credintials for Test_**
+
 ```
 email = foo@email.com
 password = foofoo
