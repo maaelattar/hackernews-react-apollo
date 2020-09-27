@@ -39,9 +39,7 @@ export default function Login() {
   return (
     <>
       {authToken ? (
-        <h4 className="text-center mt-4 display-3">
-          You are already logged in
-        </h4>
+        <h4 className="text-center mt-4 display-3">You are logged in</h4>
       ) : (
         <div>
           <h4 className="mv3">{login ? "Login" : "Sign Up"}</h4>
